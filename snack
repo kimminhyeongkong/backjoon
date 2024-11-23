@@ -1,0 +1,54 @@
+from collections import deque
+n= int(input()) 
+k = int(input())
+li = [[0] * n for i in range(n)]
+for i in range(k):
+  x,y = map(int,input().split())
+  li[x-1][y-1] = 1
+
+l = int(input())
+dx = [0,1,0,-1]
+turn = []
+dy=[1,0,-1,0]
+for i in range(l):
+  x,c = input().split()
+  turn.append((int(x),c))
+go = 0
+x,y = 0,0
+snack = deque([(0,0)])
+time = 0
+index = 0
+while True:
+  if go <0 :
+    go =3
+  if go >3:
+    go = 0
+  nx = x + dx[go]
+  ny = y + dy[go]
+
+  if nx >=n or nx <0 or ny < 0 or ny >= n:
+    time += 1
+    break
+  if (nx,ny) in snack:
+    time += 1
+    break
+  if li[nx][ny] == 0:
+    snack.append((nx,ny))
+    snack.popleft()
+    x,y = nx,ny
+    time += 1
+  if li[nx][ny] == 1:
+    li[nx][ny] = 0
+    snack.append((nx,ny))
+    x,y = nx,ny
+    time+= 1
+
+  if index < len(turn) and turn[index][0] == time:
+    if turn[index][1] == 'D':
+      go+= 1
+    else:
+      go-=1
+    index += 1
+
+print(time)
+    
