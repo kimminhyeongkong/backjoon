@@ -1,0 +1,77 @@
+n = int(input())
+li = []
+for i in range(n):
+  li.append(list(input().split()))
+
+
+def watch(x,y,direction):
+  
+  if direction == 0:
+    while y >=0:
+      if li[x][y] == 'S':
+        return True
+      if li[x][y] == 'O':
+        return False
+      y -= 1
+    return False
+
+  if direction == 1:
+    while y < n:
+      if li[x][y] == 'S':
+        return True
+      if li[x][y] == 'O':
+        return False
+      y += 1
+    return False
+  if direction == 2:
+    while x >=0:
+      if li[x][y] == 'S':
+        return True
+      if li[x][y] == 'O':
+        return False
+      x -= 1
+    return False
+
+  if direction == 3:
+    while x <n:
+      if li[x][y] == 'S':
+        return True
+      if li[x][y] == 'O':
+        return False
+      x += 1
+    return False
+find = False
+ans = False
+def dfs(count):
+  global find ,ans
+  if count == 3:
+    for i in range(n):
+      for j in range(n):
+        if li[i][j] == "T":
+          for k in range(4):
+            if watch(i,j,k):
+              find = True
+
+        
+    if find:
+      find = False
+    else:
+      ans = True
+    return
+      
+  for i in range(n):
+    for j in range(n):
+      if li[i][j] == "X":
+        li[i][j] = "O"
+        count += 1
+        dfs(count)
+        li[i][j] = "X"
+        count -= 1
+  
+
+dfs(0)
+if ans :
+  print("YES")
+else:
+  print("NO")
+    
