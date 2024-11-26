@@ -1,0 +1,29 @@
+from itertools import combinations
+n,m = map(int,input().split())
+li  = []
+for i in range(n):
+  li.append(list(map(int,input().split())))
+
+chicken = []
+for i in range(n):
+  for j in range(n):
+    if li[i][j] == 2:
+      chicken.append((i,j))
+
+result = list(combinations(chicken,m))
+
+res = int(1e9)
+for com in result:
+  sum =0
+
+  for i in range(n):
+    for j in range(n):
+      if li[i][j] == 1:
+        tmp = int(1e9)
+        for x,y in com:
+          tmp = min(tmp,abs(x-i)+ abs(y-j))
+        sum+= tmp
+
+  res = min(res,sum)
+
+print(res)
