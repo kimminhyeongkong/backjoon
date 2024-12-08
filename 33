@@ -1,0 +1,16 @@
+n = int(input())
+li =[]
+dp = [0] *(n+1)
+max_val = 0
+for i in range(n):
+  t, p  = map(int,input().split())
+  li.append((t,p))
+for i in range(n-1,-1,-1):
+  time = li[i][0]+i
+  if time <= n:
+    dp[i] = max(li[i][1]+dp[time],max_val)
+    max_val = dp[i]
+  else:
+    dp[i] = max_val
+
+print(dp[0])
