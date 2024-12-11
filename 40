@@ -1,0 +1,29 @@
+import heapq
+n,m = map(int,input().split())
+graph = [[]for i in range(n+1)]
+for i in range(m):
+  a,b = map(int,input().split())
+  graph[a].append((b,1))
+  graph[b].append((a,1))
+q = [(0,1)]
+INF = int(1e9)
+distance = [INF] * (n+1)
+distance[1] = 0
+while q:
+  dist, a = heapq.heappop(q)
+  if dist > distance[a]:
+    continue
+  for i in graph[a]:
+    cost = dist + i[1]
+    if cost < distance[i[0]]:
+      distance[i[0]] = cost
+      heapq.heappush(q,(cost,i[0]))
+num = -1
+index = n+1
+for i in range(n,0,-1):
+  if num <= distance[i]:
+    num = distance[i]
+    index = i
+
+print(index,num,distance.count(num))
+  
