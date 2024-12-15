@@ -1,0 +1,35 @@
+n,m = map(int,input().split())
+graph=[]
+for i in range(n):
+  graph.append(list(map(int,input().split())))
+
+parent = [0]*(n+1)
+for i in range(1,n+1):
+  parent[i] = i
+
+def find_parent(parent,a):
+  if parent[a] != a:
+    parent[a] = find_parent(parent,parent[a])
+  return parent[a]
+
+
+def union_parent(parent,a,b):
+  a=find_parent(parent,a)
+  b = find_parent(parent,b)
+  if a < b:
+    parent[b] = a
+  else:
+    parent[a] = b
+  
+for i in range(n):
+  for j in range(n):
+    if graph[i][j] == 1:
+      union_parent(parent,i+1,j+1)
+
+plan = list(map(int,input().split()))
+for  i in range(m-1):
+  if find_parent(parent,plan[i]) != find_parent(parent,plan[i+1]):
+    print("NO")
+    break
+else:
+  print("YES")
