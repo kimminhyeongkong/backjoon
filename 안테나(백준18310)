@@ -1,0 +1,14 @@
+'''
+접근방법: 집중하나에 설치하는거니까 집을 처음부터 순회해가며 테스트 
+-> 하다보면 중앙값에 가까워질수록 거리의합이 최소가됨을 알수 o 
+'''
+
+
+n = int(input())
+li = list(map(int,input().split()))
+li.sort()
+if len(li)%2 == 0:
+    print(li[len(li)//2-1])
+else:
+    print(li[len(li)//2])
+
