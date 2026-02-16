@@ -1,0 +1,36 @@
+'''
+Docstring for hello
+투포인터로 각각 검사하다가 두문자가 달라지는경우 -> 만약 유사회문인경우 
+start를 제외하거나 end를 제외하고 다시 검사하면 둘중하나는 무조건 회문이됨
+ex) xabba의 경우 x제외 -> abba의 경우 회문 따라서 start나 end를제외하고 검사하는 check함수만듬 
+'''
+
+
+T = int(input())
+def check(S,start,end):
+    while start < end:
+        if S[start] != S[end]:
+            return False
+        start += 1
+        end -= 1
+    return True
+    
+ 
+for _ in range(T):
+    S=  input()
+    start = 0
+    end = len(S)-1
+    ans = 0
+    while start < end:
+        if S[start] == S[end]:
+            start += 1
+            end -= 1
+            continue
+        else:
+            if check(S,start +1 ,end) or check(S,start,end-1):
+                ans = 1
+                break
+            else:
+                ans = 2
+                break
+    print(ans)
