@@ -1,0 +1,52 @@
+
+"""
+처음에는 a = b+c (a,b,c는 서로다름) 일때 a-c = b를 만족하는 b 를 찾으려고 했는데 그렇게 하려고하니 시간복잡도가 n^3이됨 따라서 안됨
+해결방법-> 투포인터
+start = 0 end = len(li)-1
+일때 li[start] + li[end] 가 li[i] 이면 되는거임 그런데 start 와 end는 i면 안됨.
+만약 li[start] + li[end] 가 li[i] 보다 크면 end를 줄이면 되고 작으면 start를 늘리면서 검사하면됨 
+"""
+
+n = int(input())
+li = list(map(int, input().split()))
+li.sort()
+
+ans = 0
+
+for i in range(n):
+  value = li[i]
+  s = 0
+  e = n-1
+  while s < e:
+    if li[s] + li[e] == value:
+      if s!= i and e!= i:
+        ans += 1
+        break
+      elif s == i:
+        s += 1
+      elif e == i:
+        e-=1
+
+    elif li[s] + li[e] < value:
+      s+= 1
+    else:
+      e -= 1
+
+print(ans)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
